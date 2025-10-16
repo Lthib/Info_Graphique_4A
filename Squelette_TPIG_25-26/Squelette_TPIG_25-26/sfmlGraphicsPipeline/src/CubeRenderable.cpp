@@ -11,13 +11,60 @@ CubeRenderable::CubeRenderable(ShaderProgramPtr shaderProgram)
   : Renderable(shaderProgram), m_vBuffer(0),m_cBuffer(0)
 {
     // Build the geometry : just a simple triangle for now
-    m_positions.push_back( glm::vec3 (-1 ,0 ,0) );
-    m_positions.push_back( glm::vec3 (1 ,0 ,0) );
-    m_positions.push_back( glm::vec3 (0 ,1 ,0) );
+	getUnitCube(m_positions, normals, tcoords);
 
+	//Rouge
     m_colors.push_back(glm::vec4(1, 0, 0, 1));
+    m_colors.push_back(glm::vec4(1, 0, 0, 1));
+    m_colors.push_back(glm::vec4(1, 0, 0, 1));
+
+	//Vert
+	m_colors.push_back(glm::vec4(0, 1, 0, 1));
     m_colors.push_back(glm::vec4(0, 1, 0, 1));
+    m_colors.push_back(glm::vec4(0, 1, 0, 1));
+
+	//Bleu
+	m_colors.push_back(glm::vec4(0, 0, 1, 1));
     m_colors.push_back(glm::vec4(0, 0, 1, 1));
+    m_colors.push_back(glm::vec4(0, 0, 1, 1));
+
+	m_colors.push_back(glm::vec4(0.5, 0, 0, 1));
+    m_colors.push_back(glm::vec4(0.5, 0, 0, 1));
+    m_colors.push_back(glm::vec4(0.5, 0, 0, 1));
+
+	m_colors.push_back(glm::vec4(0, 0.5, 0, 1));
+    m_colors.push_back(glm::vec4(0, 0.5, 0, 1));
+    m_colors.push_back(glm::vec4(0, 0.5, 0, 1));
+
+	m_colors.push_back(glm::vec4(0, 0, 0.5, 1));
+    m_colors.push_back(glm::vec4(0, 0, 0.5, 1));
+    m_colors.push_back(glm::vec4(0, 0, 0.5, 1));
+
+	m_colors.push_back(glm::vec4(1, 0.5, 0, 1));
+    m_colors.push_back(glm::vec4(1, 0.5, 0, 1));
+    m_colors.push_back(glm::vec4(1, 0.5, 0, 1));
+	
+	m_colors.push_back(glm::vec4(1, 0, 0.5, 1));
+    m_colors.push_back(glm::vec4(1, 0, 0.5, 1));
+    m_colors.push_back(glm::vec4(1, 0, 0.5, 1));
+
+	m_colors.push_back(glm::vec4(0.5, 1, 0, 1));
+    m_colors.push_back(glm::vec4(0.5, 1, 0, 1));
+    m_colors.push_back(glm::vec4(0.5, 1, 0, 1));
+
+	m_colors.push_back(glm::vec4(0, 1, 0.5, 1));
+    m_colors.push_back(glm::vec4(0, 1, 0.5, 1));
+    m_colors.push_back(glm::vec4(0, 1, 0.5, 1));
+
+	m_colors.push_back(glm::vec4(0, 0.5, 1, 1));
+    m_colors.push_back(glm::vec4(0, 0.5, 1, 1));
+    m_colors.push_back(glm::vec4(0, 0.5, 1, 1));
+
+	m_colors.push_back(glm::vec4(0.5, 0, 1, 1));
+    m_colors.push_back(glm::vec4(0.5, 0, 1, 1));
+    m_colors.push_back(glm::vec4(0.5, 0, 1, 1));
+
+
 
     // Set the model matrix to identity
     m_model = glm::mat4(1.0);
