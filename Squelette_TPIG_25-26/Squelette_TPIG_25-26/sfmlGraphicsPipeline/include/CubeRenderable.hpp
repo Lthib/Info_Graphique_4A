@@ -13,6 +13,8 @@ class CubeRenderable : public Renderable
 
     private:
         void do_draw();
+        std::vector<glm::vec3> normals;
+        std::vector<glm::vec2> tcoords;
 
         std::vector< glm::vec3 > m_positions;
         unsigned int m_vBuffer;
