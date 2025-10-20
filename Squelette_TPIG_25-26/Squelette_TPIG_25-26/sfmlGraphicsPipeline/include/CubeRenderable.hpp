@@ -21,7 +21,7 @@ class CubeRenderable : public Renderable
         std::vector< glm::vec4 > m_colors;
         unsigned int m_cBuffer;
 
-        glm::mat4 m_model;
+        //glm::mat4 m_model;
 };
 
 typedef std::shared_ptr<CubeRenderable> CubeRenderablePtr;

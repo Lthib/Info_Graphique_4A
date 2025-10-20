@@ -14,6 +14,7 @@ class IndexedCubeRenderable : public Renderable
     private:
         void do_draw();
         std::vector<glm::vec3> normals;
+        unsigned int m_nBuffer;
         std::vector<glm::vec2> tcoords;
         std::vector<unsigned int> m_index;
         unsigned int m_iBuffer;
@@ -23,7 +24,7 @@ class IndexedCubeRenderable : public Renderable
         std::vector< glm::vec4 > m_colors;
         unsigned int m_cBuffer;
 
-        glm::mat4 m_model;
+        //glm::mat4 m_model;
 };
 
 typedef std::shared_ptr<IndexedCubeRenderable> IndexedCubeRenderablePtr;
