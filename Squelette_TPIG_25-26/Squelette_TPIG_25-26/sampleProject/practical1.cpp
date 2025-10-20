@@ -3,6 +3,8 @@
 #include "./../include/ShaderProgram.hpp"
 #include "./../include/FrameRenderable.hpp"
 #include "./../include/IndexedCubeRenderable.hpp"
+#include "./../include/CubeRenderable.hpp"
+#include "./../include/Renderable.hpp"
 
 #define SCR_WIDTH 1024
 #define SCR_HEIGHT 768
@@ -40,9 +42,19 @@ int main( int argc, char* argv[] )
      viewer.addRenderable(frame);
 
      // Instantiate a CubeRenderable while specifying its shader program
-     IndexedCubeRenderablePtr cube = std::make_shared<IndexedCubeRenderable>(flatShader);
+     IndexedCubeRenderablePtr Indexedcube = std::make_shared<IndexedCubeRenderable>(flatShader);
     // Add the renderable to the Viewer
-     viewer.addRenderable ( cube );
+	 CubeRenderablePtr cube = std::make_shared<CubeRenderable>(flatShader);
+     
+     glm::mat4 t = glm::translate(glm::mat4(),glm::vec3(2.0f,0.0f,0.0f));
+     glm::mat4 r = glm::rotate(glm::mat4(), -45.0f,glm::vec3(0.0f,0.0f,2.0f));
+     glm::mat4 s = glm::scale(glm::mat4(),glm::vec3(1.0f,1.2f,1.4f));
+
+	 Indexedcube-> setModelMatrix(t * r *s);
+     
+	 
+	 viewer.addRenderable ( Indexedcube );
+	 viewer.addRenderable(cube);
 
     // Stage 3: Our program loop
     while( viewer.isRunning() )

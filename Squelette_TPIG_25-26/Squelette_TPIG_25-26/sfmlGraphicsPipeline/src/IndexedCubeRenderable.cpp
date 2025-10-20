@@ -10,17 +10,20 @@ IndexedCubeRenderable::IndexedCubeRenderable(ShaderProgramPtr shaderProgram)
   : Renderable(shaderProgram), m_vBuffer(0),m_cBuffer(0)
 {
     // Build the geometry : just a simple triangle for now
-	m_positions.push_back( glm::vec3 (-1 ,-1 ,-1) );
+	/*m_positions.push_back( glm::vec3 (-1 ,-1 ,-1) );
 m_positions.push_back( glm::vec3 (1 ,-1 ,-1) );
 m_positions.push_back( glm::vec3 (1 ,1 ,-1) );
 m_positions.push_back( glm::vec3 (-1 ,1 ,-1) );
 m_positions.push_back( glm::vec3 (-1 ,-1 ,1) );
 m_positions.push_back( glm::vec3 (1 ,-1 ,1) );
 m_positions.push_back( glm::vec3 (1 ,1 ,1) );
-m_positions.push_back( glm::vec3 (-1 ,1 ,1) );
+m_positions.push_back( glm::vec3 (-1 ,1 ,1) );*/
 
+std::vector<glm::uvec3> indices;
+getUnitIndexedCube(m_positions, normals, indices);
+unpack(indices,m_index);
 
-    m_index = {
+/*    m_index = {
 0, 1, 2,
 2, 3, 0,
 1, 5, 6,
@@ -33,7 +36,7 @@ m_positions.push_back( glm::vec3 (-1 ,1 ,1) );
 1, 0, 4,
 3, 2, 6,
 6, 7, 3
-};
+};*/
 
 	srand (time(0));
     for(int i = 0; i < 8; i++) {
@@ -52,6 +55,7 @@ m_positions.push_back( glm::vec3 (-1 ,1 ,1) );
     glGenBuffers(1, &m_vBuffer); //vertices
     glGenBuffers(1, &m_cBuffer); //colors
     glGenBuffers(1, &m_iBuffer); //indexes
+    glGenBuffers(1, &m_nBuffer); //normals
 
     //Activate buffer and send data to the graphics card
     glBindBuffer(GL_ARRAY_BUFFER, m_vBuffer);
@@ -94,7 +98,7 @@ void IndexedCubeRenderable::do_draw()
     glDrawElements(GL_TRIANGLES, m_index.size(), GL_UNSIGNED_INT, (void*)0);
 
     // Draw the triangles
-    glDrawArrays( GL_TRIANGLES, 0,m_positions.size());
+    //glDrawArrays( GL_TRIANGLES, 0,m_positions.size());
 
     // Release the vertex attribute array
     glDisableVertexAttribArray( positionLocation );
@@ -106,4 +110,5 @@ IndexedCubeRenderable::~IndexedCubeRenderable()
     glcheck(glDeleteBuffers(1, &m_vBuffer));
     glcheck(glDeleteBuffers(1, &m_cBuffer));
     glcheck(glDeleteBuffers(1, &m_iBuffer));
+    glcheck(glDeleteBuffers(1, &m_nBuffer));
 }
