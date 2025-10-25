@@ -32,17 +32,17 @@ void initialize_scene( Viewer& viewer )
     // Add suzanne to the viewer
     viewer.addRenderable(suzanne);
 
-    // const std::string cat_path = "../../sfmlGraphicsPipeline/meshes/cat.obj";
-    // MeshRenderablePtr cat = std::make_shared<MeshRenderable>(flatShader, cat_path);
-    // cat->setModelMatrix(getTranslationMatrix(-4.75,3.23,0));
-    // // Add suzanne to the viewer
-    // viewer.addRenderable(cat);
+    const std::string cat_path = "../../sfmlGraphicsPipeline/meshes/cat.obj";
+    MeshRenderablePtr cat = std::make_shared<MeshRenderable>(flatShader, cat_path);
+    cat->setModelMatrix(getTranslationMatrix(-4.75,3.23,0));
+    // Add suzanne to the viewer
+    viewer.addRenderable(cat);
 
-    // const std::string pillar_path = "../../sfmlGraphicsPipeline/meshes/pillar.obj";
-    // MeshRenderablePtr pillar = std::make_shared<MeshRenderable>(flatShader, pillar_path);
-    // pillar->setModelMatrix(getTranslationMatrix(-5,0,0)*getRotationMatrix(1.57f,glm::vec3(0,0,1)));
-    // // Add suzanne to the viewer
-    // viewer.addRenderable(pillar);
+    const std::string pillar_path = "../../sfmlGraphicsPipeline/meshes/pillar.obj";
+    MeshRenderablePtr pillar = std::make_shared<MeshRenderable>(flatShader, pillar_path);
+    pillar->setModelMatrix(getTranslationMatrix(-5,0,0)*getRotationMatrix(1.57f,glm::vec3(0,0,1)));
+    // Add suzanne to the viewer
+    viewer.addRenderable(pillar);
 }
 
 int main() 
