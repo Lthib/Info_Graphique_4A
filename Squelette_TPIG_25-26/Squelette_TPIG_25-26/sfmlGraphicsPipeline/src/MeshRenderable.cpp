@@ -14,6 +14,7 @@ MeshRenderable::MeshRenderable(ShaderProgramPtr program,
     m_pBuffer(0), m_cBuffer(0), m_nBuffer(0), m_iBuffer(0), m_mode(GL_TRIANGLES), m_indexed(true)
 {
     // TODO: 
+    //read_obj(mesh_filename,m_positions,m_indices,m_normals,m_tcoords);
     // use read_obj from Io.hpp to populate m_positions, m_indices, m_normals and m_tcoords
     set_random_colors();
     gen_buffers();

@@ -3,6 +3,7 @@
 
 #include <chrono>
 #include <random>
+#include <cmath>
 #include <glm/gtx/color_space.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -295,65 +296,66 @@ void getUnitCylinder(vector<glm::vec3> &positions, vector<glm::vec3> &normals, s
 
     float previous_angle = (slices - 1) * angle_step;
     float angle = 0;
-    float previous_sin; // = ???
-    float previous_cos; // = ???
-    float sin; // = ???
-    float cos; // = ???
+    float previous_sin=std::sin(previous_angle); // = ???
+    float previous_cos=std::cos(previous_angle); // = ???
+    float sin = std::sin(angle); // = ???
+    float cos = std::cos(angle); // = ???
 
 
     for( size_t i = 0; i < slices; ++ i)
     {
         size_t voffset = 12 * i; // 4 x 3 = 12 vertices per slice
 
-        // Positions
-
         // top triangle
-        // positions[ voffset +  0 ] = ???
-        // positions[ voffset +  1 ] = ???
-        // positions[ voffset +  2 ] = ???
+        positions[ voffset +  0 ] = glm::vec3(0.0, 0.0, 1);
+        positions[ voffset +  1 ] = glm::vec3(sin, cos, 1);
+        positions[ voffset +  2 ] = glm::vec3(previous_sin, previous_cos, 1);
 
         // side triangles
-        // positions[ voffset +  3 ] = ???
-        // positions[ voffset +  4 ] = ???
-        // positions[ voffset +  5 ] = ???
-        // positions[ voffset +  6 ] = ???
-        // positions[ voffset +  7 ] = ???
-        // positions[ voffset +  8 ] = ???
+        positions[ voffset +  3 ] = glm::vec3(sin, cos, 1);
+        positions[ voffset +  4 ] = glm::vec3(previous_sin, previous_cos, 1);
+        positions[ voffset +  5 ] = glm::vec3(previous_sin, previous_cos, -1.0);
+        positions[ voffset +  6 ] = glm::vec3(sin, cos, -1.0);
+        positions[ voffset +  7 ] = glm::vec3(previous_sin, previous_cos, -1.0);
+        positions[ voffset +  8 ] = glm::vec3(sin, cos, 1);
 
         // bottom triangle
-        // positions[ voffset +  9 ] = ???
-        // positions[ voffset + 10 ] = ???
-        // positions[ voffset + 11 ] = ???
+        positions[ voffset +  9 ] = glm::vec3(0.0, 0.0, -1.0);
+        positions[ voffset + 10 ] = glm::vec3(sin, cos, -1.0);
+        positions[ voffset +  11 ] = glm::vec3(previous_sin, previous_cos, -1.0);
 
         // Normals
 
         // top triangle
-        // normals[ voffset +  0 ] = ???
-        // normals[ voffset +  1 ] = ???
-        // normals[ voffset +  2 ] = ???
+        normals[ voffset +  0 ] = glm::vec3(0.0, 0.0, 1);
+        normals[ voffset +  1 ] = glm::vec3(0.0, 0.0, 1);
+        normals[ voffset +  2 ] = glm::vec3(0.0, 0.0, 1);
         
         // side triangles
         if (vertex_normals){
             // Per vertex normals
-            // normals[ voffset +  3 ] = ???
-            // normals[ voffset +  4 ] = ???
-            // normals[ voffset +  5 ] = ???
-            // normals[ voffset +  6 ] = ???
-            // normals[ voffset +  7 ] = ???
-            // normals[ voffset +  8 ] = ???
+            // glm::vec3 a=glm::normalize(glm::vec3(sin, cos, 0));
+            // glm::vec3 b=glm::normalize(glm::vec3(previous_sin, previous_cos, 0.0));
+            // normals[ voffset +  3 ] = a;
+            // normals[ voffset +  4 ] = b;
+            // normals[ voffset +  5 ] = b;
+            // normals[ voffset +  6 ] = a;
+            // normals[ voffset +  7 ] = b;
+            // normals[ voffset +  8 ] = a;
         }else{
             // Per triangle normals
-            // normals[ voffset +  3 ] = ???
-            // normals[ voffset +  4 ] = ???
-            // normals[ voffset +  5 ] = ???
-            // normals[ voffset +  6 ] = ???
-            // normals[ voffset +  7 ] = ???
-            // normals[ voffset +  8 ] = ???
+            // glm::vec3 a=glm::normalize(glm::vec3((sin+previous_sin)/2, (cos+previous_cos)/2, 0));
+            // normals[ voffset +  3 ] = a;
+            // normals[ voffset +  4 ] = a;
+            // normals[ voffset +  5 ] = a;
+            // normals[ voffset +  6 ] = a;
+            // normals[ voffset +  7 ] = a;
+            // normals[ voffset +  8 ] = a;
         }
 
-        // normals[ voffset +  9 ] = ???
-        // normals[ voffset + 10 ] = ???
-        // normals[ voffset + 11 ] = ???
+        // normals[ voffset +  9 ] = glm::vec3(0.0, 0.0, -1);
+        // normals[ voffset + 10 ] = glm::vec3(0.0, 0.0, -1);
+        // normals[ voffset + 11 ] = glm::vec3(0.0, 0.0, -1);
 
         // Texture coordinates (don't modify, might be used later)
         
@@ -377,6 +379,13 @@ void getUnitCylinder(vector<glm::vec3> &positions, vector<glm::vec3> &normals, s
         tcoords[voffset + 9] = glm::vec2(current_u, 1);
         tcoords[voffset + 10] = glm::vec2(next_u, 0.66);
         tcoords[voffset + 11] = glm::vec2(current_u,0.66);
+
+        previous_angle = angle;
+        angle = angle + angle_step;
+        previous_sin=std::sin(previous_angle); // = ???
+        previous_cos=std::cos(previous_angle); // = ???
+        sin = std::sin(angle); // = ???
+        cos = std::cos(angle); // = ???
     }
 }
 

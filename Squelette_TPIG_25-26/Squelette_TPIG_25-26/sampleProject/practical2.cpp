@@ -18,7 +18,7 @@ void initialize_scene( Viewer& viewer )
 	// Create a cylinder
     bool indexed = false; // indexed version already implemented
     unsigned int slices = 20u; // number of slices
-    bool vertex_normals = false; // use vertex normals ? else triangle normals
+    bool vertex_normals = true; // use vertex normals ? else triangle normals
     // See CylinderMeshRenderable.cpp 
     CylinderMeshRenderablePtr cylinder = std::make_shared<CylinderMeshRenderable>(flatShader, indexed, slices, vertex_normals);
 
@@ -31,6 +31,18 @@ void initialize_scene( Viewer& viewer )
     suzanne->setModelMatrix(getTranslationMatrix(5,0,0));
     // Add suzanne to the viewer
     viewer.addRenderable(suzanne);
+
+    // const std::string cat_path = "../../sfmlGraphicsPipeline/meshes/cat.obj";
+    // MeshRenderablePtr cat = std::make_shared<MeshRenderable>(flatShader, cat_path);
+    // cat->setModelMatrix(getTranslationMatrix(-4.75,3.23,0));
+    // // Add suzanne to the viewer
+    // viewer.addRenderable(cat);
+
+    // const std::string pillar_path = "../../sfmlGraphicsPipeline/meshes/pillar.obj";
+    // MeshRenderablePtr pillar = std::make_shared<MeshRenderable>(flatShader, pillar_path);
+    // pillar->setModelMatrix(getTranslationMatrix(-5,0,0)*getRotationMatrix(1.57f,glm::vec3(0,0,1)));
+    // // Add suzanne to the viewer
+    // viewer.addRenderable(pillar);
 }
 
 int main() 
