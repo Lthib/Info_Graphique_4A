@@ -333,29 +333,29 @@ void getUnitCylinder(vector<glm::vec3> &positions, vector<glm::vec3> &normals, s
         
         // side triangles
         if (vertex_normals){
-            // Per vertex normals
-            // glm::vec3 a=glm::normalize(glm::vec3(sin, cos, 0));
-            // glm::vec3 b=glm::normalize(glm::vec3(previous_sin, previous_cos, 0.0));
-            // normals[ voffset +  3 ] = a;
-            // normals[ voffset +  4 ] = b;
-            // normals[ voffset +  5 ] = b;
-            // normals[ voffset +  6 ] = a;
-            // normals[ voffset +  7 ] = b;
-            // normals[ voffset +  8 ] = a;
+            //Per vertex normals
+            glm::vec3 a=glm::normalize(glm::vec3(sin, cos, 0));
+            glm::vec3 b=glm::normalize(glm::vec3(previous_sin, previous_cos, 0.0));
+            normals[ voffset +  3 ] = a;
+            normals[ voffset +  4 ] = b;
+            normals[ voffset +  5 ] = b;
+            normals[ voffset +  6 ] = a;
+            normals[ voffset +  7 ] = b;
+            normals[ voffset +  8 ] = a;
         }else{
-            // Per triangle normals
-            // glm::vec3 a=glm::normalize(glm::vec3((sin+previous_sin)/2, (cos+previous_cos)/2, 0));
-            // normals[ voffset +  3 ] = a;
-            // normals[ voffset +  4 ] = a;
-            // normals[ voffset +  5 ] = a;
-            // normals[ voffset +  6 ] = a;
-            // normals[ voffset +  7 ] = a;
-            // normals[ voffset +  8 ] = a;
+            //Per triangle normals
+            glm::vec3 a=glm::normalize(glm::vec3((sin+previous_sin)/2, (cos+previous_cos)/2, 0));
+            normals[ voffset +  3 ] = a;
+            normals[ voffset +  4 ] = a;
+            normals[ voffset +  5 ] = a;
+            normals[ voffset +  6 ] = a;
+            normals[ voffset +  7 ] = a;
+            normals[ voffset +  8 ] = a;
         }
 
-        // normals[ voffset +  9 ] = glm::vec3(0.0, 0.0, -1);
-        // normals[ voffset + 10 ] = glm::vec3(0.0, 0.0, -1);
-        // normals[ voffset + 11 ] = glm::vec3(0.0, 0.0, -1);
+        normals[ voffset +  9 ] = glm::vec3(0.0, 0.0, -1);
+        normals[ voffset + 10 ] = glm::vec3(0.0, 0.0, -1);
+        normals[ voffset + 11 ] = glm::vec3(0.0, 0.0, -1);
 
         // Texture coordinates (don't modify, might be used later)
         
