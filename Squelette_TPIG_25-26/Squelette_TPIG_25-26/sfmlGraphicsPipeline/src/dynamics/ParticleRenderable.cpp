@@ -10,6 +10,13 @@
 ParticleRenderable::~ParticleRenderable()
 {}
 
+ParticleRenderable::ParticleRenderable(ShaderProgramPtr program, const ParticlePtr & particle,const std::string & mesh_filename) :
+    MeshRenderable(program, mesh_filename),
+    m_particle(particle)
+{
+    update_all_buffers();
+}
+
 ParticleRenderable::ParticleRenderable(ShaderProgramPtr program, const ParticlePtr & particle, unsigned int strips, unsigned int slices) :
     MeshRenderable(program, true),
     m_particle(particle)
@@ -34,5 +41,6 @@ void ParticleRenderable::do_draw()
     glm::mat4 scale = glm::scale(glm::mat4(1.0), glm::vec3(pRadius));
     glm::mat4 translate = glm::translate(glm::mat4(1.0), glm::vec3(pPosition));
     setLocalTransform(translate*scale);
+    
     MeshRenderable::do_draw();
 }

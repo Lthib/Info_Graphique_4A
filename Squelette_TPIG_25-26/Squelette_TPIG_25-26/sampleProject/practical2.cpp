@@ -19,30 +19,37 @@ void initialize_scene( Viewer& viewer )
     bool indexed = false; // indexed version already implemented
     unsigned int slices = 20u; // number of slices
     bool vertex_normals = true; // use vertex normals ? else triangle normals
-    // See CylinderMeshRenderable.cpp 
-    CylinderMeshRenderablePtr cylinder = std::make_shared<CylinderMeshRenderable>(flatShader, indexed, slices, vertex_normals);
+    // // See CylinderMeshRenderable.cpp 
+    // CylinderMeshRenderablePtr cylinder = std::make_shared<CylinderMeshRenderable>(flatShader, indexed, slices, vertex_normals);
 
-    // Add the cylinder to the viewer
-    viewer.addRenderable(cylinder);
+    // // Add the cylinder to the viewer
+    // viewer.addRenderable(cylinder);
     
-    // Create suzanne
-    const std::string suzanne_path = "../../sfmlGraphicsPipeline/meshes/suzanne.obj";
-    MeshRenderablePtr suzanne = std::make_shared<MeshRenderable>(flatShader, suzanne_path);
-    suzanne->setModelMatrix(getTranslationMatrix(5,0,0));
-    // Add suzanne to the viewer
-    viewer.addRenderable(suzanne);
+    // // Create suzanne
+    // const std::string suzanne_path = "../../sfmlGraphicsPipeline/meshes/suzanne.obj";
+    // MeshRenderablePtr suzanne = std::make_shared<MeshRenderable>(flatShader, suzanne_path);
+    // suzanne->setModelMatrix(getTranslationMatrix(5,0,0));
+    // // Add suzanne to the viewer
+    // //viewer.addRenderable(suzanne);
 
-    const std::string cat_path = "../../sfmlGraphicsPipeline/meshes/cat.obj";
+    const std::string cat_path = "../../sfmlGraphicsPipeline/meshes/puit2.obj";
     MeshRenderablePtr cat = std::make_shared<MeshRenderable>(flatShader, cat_path);
-    cat->setModelMatrix(getTranslationMatrix(-4.75,3.23,0));
+    cat->setLocalTransform(getScaleMatrix(0.5,0.5,0.5));
+    cat->setGlobalTransform(getTranslationMatrix(-2.5,0,0));
     // Add suzanne to the viewer
     viewer.addRenderable(cat);
 
-    const std::string pillar_path = "../../sfmlGraphicsPipeline/meshes/pillar.obj";
+    const std::string pillar_path = "../../sfmlGraphicsPipeline/meshes/tortue4.obj";
     MeshRenderablePtr pillar = std::make_shared<MeshRenderable>(flatShader, pillar_path);
-    pillar->setModelMatrix(getTranslationMatrix(-5,0,0)*getRotationMatrix(1.57f,glm::vec3(0,0,1)));
+    pillar->setGlobalTransform(getTranslationMatrix(-5,0,0));
     // Add suzanne to the viewer
     viewer.addRenderable(pillar);
+
+    const std::string Turtle_path = "../../sfmlGraphicsPipeline/meshes/souris2.obj";
+    MeshRenderablePtr Turtle = std::make_shared<MeshRenderable>(flatShader, Turtle_path);
+    Turtle->setLocalTransform(getScaleMatrix(0.4,0.4,0.4));
+    // Add suzanne to the viewer
+    viewer.addRenderable(Turtle);
 }
 
 int main() 

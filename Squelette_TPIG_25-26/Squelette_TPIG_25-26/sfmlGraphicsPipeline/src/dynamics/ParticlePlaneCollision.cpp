@@ -23,11 +23,22 @@ void ParticlePlaneCollision::do_solveCollision()
     //Plane::normal(): Return the normal of the plane
     //Particle::getRadius(), Particle::getPosition(), Particle::getVelocity(), Particle::setPosition(), Particle::setVelocity()
 
+    //normal of the plane
+    glm::vec3 n = m_plane->normal();
+    glm::vec3 p = m_particle->getPosition();
+    float d = m_plane->distanceToOrigin();
+    float r = m_particle->getRadius();
+    glm::vec3 v = m_particle->getVelocity();
+    
+
     //Compute particle-plane distance
+    float d2plane=abs(glm::dot(p,n)-d); 
 
     //Project the particle on the plane
+    m_particle->setPosition(p-(d2plane-r)*n);
 
     //Compute post-collision velocity
+    m_particle->setVelocity(v-(1.0f+m_restitution)*(glm::dot(v,n))*n);
 
 }
 
@@ -59,5 +70,5 @@ bool testParticlePlane(const ParticlePtr &particle, const PlanePtr &plane)
     //Plane::normal(): Return the normal of the plane
     //Particle::getRadius(), Particle::getPosition()
 
-    return false;
+    return abs(dot(particle->getPosition(),plane->normal())-plane->distanceToOrigin())-particle->getRadius() <=0;
 }

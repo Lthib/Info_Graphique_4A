@@ -24,7 +24,7 @@ public:
         * @param particle The particle to render.
         */
     ParticleRenderable( ShaderProgramPtr program, const ParticlePtr & particle, unsigned int strips=10u, unsigned int slices=20u);
-
+    ParticleRenderable(ShaderProgramPtr program, const ParticlePtr & particle,const std::string & mesh_filename);
 protected:
     void do_draw();
 
