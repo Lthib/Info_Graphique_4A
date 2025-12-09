@@ -21,13 +21,18 @@ glm::mat4 KeyframeCollection::interpolateTransformation( float time ) const
         std::array< Keyframe, 2 > result = getBoundingKeyframes( effective_time );
 
         //TODO: Compute the interpolating factor based on the time parameter and the surrounding keyframes times.
+        float interpolatefactor = (effective_time-result[0].first)/(result[1].first-result[0].first);
 
         //TODO: Interpolate each transformation component of the surrounding keyframes: orientation, translation, scale
         //      Use spherical linear interpolation for the orientation interpolation, glm::slerp(value1, value2, factor);
         //      Use linear interpolation for the translation and scale, glm::lerp(value1, value2, factor);
+        glm::quat orientation = glm::slerp(result[0].second.getOrientation(),result[1].second.getOrientation(),interpolatefactor);
+        glm::vec3 translation = glm::lerp(result[0].second.getTranslation(),result[1].second.getTranslation(),interpolatefactor);
+        glm::vec3 scale = glm::lerp(result[0].second.getScale(),result[1].second.getScale(),interpolatefactor);
+
 
         //Build a matrix transformation from the orientation, translation and scale components
-        return glm::mat4(1.0);
+        return GeometricTransformation(translation,orientation,scale).toMatrix();
     }
     else
     {

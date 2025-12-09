@@ -19,11 +19,20 @@ void SpringForceField::do_addForce()
     //      Otherwise the computation is useless
 
     //Compute displacement vector
+    glm::vec3 dep= m_p1->getPosition()-m_p2->getPosition();
 
     //Compute displacement length
+    float pos_norm = length(dep);
 
     //Compute spring force corresponding to the displacement 
     //If the displacement is measurable by the computer (otherwise no force)
+    glm::vec3 forcek=-m_stiffness*(pos_norm-m_equilibriumLength)*(dep/pos_norm);
+    glm::vec3 v1 = m_p1->getVelocity()-m_p2->getVelocity();
+    glm::vec3 forcekc=-m_damping*(glm::dot(v1,(dep/pos_norm)))*(dep/pos_norm);
+
+    glm::vec3 forcetot=forcek+forcekc;
+    m_p1->setForce(m_p1->getForce()+forcetot);
+    m_p2->setForce(m_p2->getForce()-forcetot);
 }
 
 ParticlePtr SpringForceField::getParticle1() const

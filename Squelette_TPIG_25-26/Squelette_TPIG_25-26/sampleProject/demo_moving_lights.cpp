@@ -85,7 +85,7 @@ void initialize_scene( Viewer& viewer )
         auto spot_light = std::make_shared<SpotLight>(glm::vec3(3,5,3), glm::vec3(-1,-1,-1), glm::vec3(0), blue, glm::vec3(0), 1, 0, 0, 0.98, 0.92);
         viewer.addSpotLight(spot_light);
 
-        spot_light->addGlobalTransformKeyframe(lookAtModel(glm::vec3(3,5,3), glm::vec3(0), Light::base_forward), 0);
+        spot_light->addGlobalTransformKeyframe(lookAtModel(glm::vec3(2,2,2), glm::vec3(0), Light::base_forward), 0);
         spot_light->addGlobalTransformKeyframe(lookAtModel(glm::vec3(-3,5,3), glm::vec3(0), Light::base_forward), 3);
         spot_light->addGlobalTransformKeyframe(lookAtModel(glm::vec3(-3,5,-3), glm::vec3(0), Light::base_forward), 6);
         spot_light->addGlobalTransformKeyframe(lookAtModel(glm::vec3(3,5,-3), glm::vec3(0), Light::base_forward), 9);

@@ -30,20 +30,36 @@ void initialize_scene( Viewer& viewer )
     //Define a transformation
     glm::mat4 globalTransformation, localTransformation;
 
-    //Define a directional light for the whole scene
-    glm::vec3 d_direction = glm::normalize(glm::vec3(0.0,-1.0,-1.0));
-    glm::vec3 d_ambient(0.0,0.0,0.0), d_diffuse(0.3,0.3,0.1), d_specular(0.3,0.3,0.1);
-    //glm::vec3 d_ambient(0.0,0.0,0.0), d_diffuse(0.0,0.0,0.0), d_specular(0.0,0.0,0.0);
-    glm::vec3 lightPosition(0.0,5.0,8.0);
-    DirectionalLightPtr directionalLight = std::make_shared<DirectionalLight>(d_direction, d_ambient, d_diffuse, d_specular);
-    directionalLight->setGlobalTransform(getTranslationMatrix(lightPosition) * directionalLight->getGlobalTransform());
+    // //Define a directional light for the whole scene
+    // glm::vec3 d_direction = glm::normalize(glm::vec3(0.0,-1.0,-1.0));
+    // glm::vec3 d_ambient(0.0,0.0,0.0), d_diffuse(0.3,0.3,0.1), d_specular(0.3,0.3,0.1);
+    // //glm::vec3 d_ambient(0.0,0.0,0.0), d_diffuse(0.0,0.0,0.0), d_specular(0.0,0.0,0.0);
+    // glm::vec3 lightPosition(0.0,5.0,8.0);
+    // DirectionalLightPtr directionalLight = std::make_shared<DirectionalLight>(d_direction, d_ambient, d_diffuse, d_specular);
+    // directionalLight->setGlobalTransform(getTranslationMatrix(lightPosition) * directionalLight->getGlobalTransform());
+    // { // Moving DirectionalLight
+    //     glm::vec3 d_ambient(0.0,0.0,0.0), d_diffuse(0.3,0.3,0.1), d_specular(0.3,0.3,0.1);
+    //     auto dir_light = std::make_shared<DirectionalLight>(glm::vec3(1,0,0), d_ambient, d_diffuse, d_specular);
+    //     viewer.addDirectionalLight(dir_light);
+        
+    //     dir_light->addGlobalTransformKeyframe(getRotationMatrix( 0 * 2 * M_PI, 1, 1, 1)    , 0);
+    //     dir_light->addGlobalTransformKeyframe(getRotationMatrix( 0.25 * 2 * M_PI, 1, 1, 1) , 1);
+    //     dir_light->addGlobalTransformKeyframe(getRotationMatrix( 0.5 * 2 * M_PI, 1, 1, 1)  , 2);
+    //     dir_light->addGlobalTransformKeyframe(getRotationMatrix( 0.75 * 2 * M_PI, 1, 1, 1) , 3);
+    //     dir_light->addGlobalTransformKeyframe(getRotationMatrix( 1 * 2 * M_PI, 1, 1, 1)    , 4);
+
+    //     auto dir_light_renderable = std::make_shared<DirectionalLightRenderable>(flatShader, dir_light);
+    //     dir_light_renderable->setLocalTransform(getTranslationMatrix(0, 0, 15) * getScaleMatrix(0.5));
+
+    //     viewer.addRenderable(dir_light_renderable);
+    // }
     
-    //Add a renderable to display the light and control it via mouse/key event
-    DirectionalLightRenderablePtr directionalLightRenderable = std::make_shared<DirectionalLightRenderable>(flatShader, directionalLight);
-    localTransformation = getScaleMatrix(0.5);
-    directionalLightRenderable->setLocalTransform(localTransformation);
-    viewer.addDirectionalLight(directionalLight);
-    viewer.addRenderable(directionalLightRenderable);
+    // //Add a renderable to display the light and control it via mouse/key event
+    // DirectionalLightRenderablePtr directionalLightRenderable = std::make_shared<DirectionalLightRenderable>(flatShader, directionalLight);
+    // localTransformation = getScaleMatrix(0.5);
+    // directionalLightRenderable->setLocalTransform(localTransformation);
+    // viewer.addDirectionalLight(directionalLight);
+    // viewer.addRenderable(directionalLightRenderable);
 
     //Define a point light
     glm::vec3 p_position(0.0,0.0,0.0), p_ambient(0.0,0.0,0.0), p_diffuse(0.0,0.0,0.0), p_specular(0.0,0.0,0.0);
@@ -92,6 +108,20 @@ void initialize_scene( Viewer& viewer )
     spotLightRenderable->setLocalTransform(localTransformation);
     viewer.addSpotLight(spotLight);
     viewer.addRenderable(spotLightRenderable);
+    { // Moving SpotLight
+        glm::vec3 s_ambient(0.0,0.0,0.0), s_diffuse(0.5,0.5,0.5), s_specular(0.5,0.5,0.5);
+        auto spot_light = std::make_shared<SpotLight>(glm::vec3(3,5,3), s_ambient,s_diffuse, s_specular, glm::vec3(0), 1, 0, 0, 0.98, 0.92);
+        viewer.addSpotLight(spot_light);
+
+        spot_light->addGlobalTransformKeyframe(lookAtModel(glm::vec3(5,7,5), glm::vec3(0), Light::base_forward), 0);
+        spot_light->addGlobalTransformKeyframe(lookAtModel(glm::vec3(-3,5,3), glm::vec3(0), Light::base_forward), 3);
+        spot_light->addGlobalTransformKeyframe(lookAtModel(glm::vec3(-3,5,-3), glm::vec3(0), Light::base_forward), 6);
+        spot_light->addGlobalTransformKeyframe(lookAtModel(glm::vec3(3,5,-3), glm::vec3(0), Light::base_forward), 9);
+        spot_light->addGlobalTransformKeyframe(lookAtModel(glm::vec3(3,5,3), glm::vec3(0), Light::base_forward), 12);
+
+        auto spot_light_renderable = std::make_shared<SpotLightRenderable>(flatShader, spot_light);
+        viewer.addRenderable(spot_light_renderable);
+    }
 
     //Define materials
     glm::vec3 mAmbient(0.0), mDiffuse(0.0), mSpecular(0.0);
@@ -128,7 +158,7 @@ void initialize_scene( Viewer& viewer )
     viewer.addRenderable( suzanne2 );
 
     viewer.startAnimation();
-    viewer.setAnimationLoop(true, 4.0);
+    viewer.setAnimationLoop(true, 12.0);
 }
 
 int main() 
